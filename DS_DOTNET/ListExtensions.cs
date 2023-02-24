@@ -13,7 +13,7 @@ namespace DSDOTNET
             List<int> result = new List<int>();
             foreach (var item in list)
             {
-                if(item % 2 == 0)
+                if (item % 2 == 0)
                 {
                     result.Add(item);
                 }
@@ -34,23 +34,15 @@ namespace DSDOTNET
             return result;
         }
 
-        public static List<string> Transform(this List<string> list , Func<string, string> predicate)
+        public static List<TOutput> Transform<TInput, TOutput>( 
+            this List<TInput> list, 
+            Func<TInput, TOutput> predicate)
         {
-            List<string> res = new List<string>();
-            list.ForEach(s =>
+            List<TOutput> res = new List<TOutput>();
+            foreach (TInput item in list)
             {
-                res.Add(predicate(s));
-            });
-            return res;
-        }
-
-        public static List<int> Transform(this List<int> list, Func<int, int> predicate)
-        {
-            List<int> res = new List<int>();
-            list.ForEach(s =>
-            {
-                res.Add(predicate(s));
-            });
+                res.Add(predicate(item));
+            }
             return res;
         }
     }

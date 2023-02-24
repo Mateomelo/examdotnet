@@ -60,28 +60,19 @@ namespace TestProject1
         [TestMethod]
         public void TestTransform()
         {
-            List<string> list = new List<string> { "HOME", "WORK", "SPORT", "TRAVEL", "CINEMA", "MUSIC" };
+            List<string> tags = new List<string> { "home", "work", "sport", "travel", "cinema", "music" };
 
+            List<string> transformedTags = tags.Transform(tag => tag.ToUpper());
 
-            Func<string, string> predicate = s => s.ToUpper();
+            CollectionAssert.AreEqual(
+                new List<string> { "HOME", "WORK", "SPORT", "TRAVEL", "CINEMA", "MUSIC" },
+                transformedTags);
 
-            var res = list.Transform(predicate);
+            List<int> list = new List<int> { 2, 4, 10, 35, -5 };
 
-            List<string> expected = new List<string> { "HOME", "WORK", "SPORT", "TRAVEL", "CINEMA", "MUSIC" };
-
-            CollectionAssert.AreEqual(expected, res);
-
-
-            List<int> listInt = new List<int> { 10, 20, 30, -20 };
-
-            Func<int, int> predicateInt = s => s * 2;
-
-            var resInt = listInt.Transform(predicateInt);
-
-            var expectedInt = new List<int> { 20, 40, 60, -40 };
-
-            CollectionAssert.AreEqual(expectedInt, resInt);
-
+            List<int> transformedList = list.Transform(num => num * 2);
+            CollectionAssert.AreEqual(
+                new List<int> { 4, 8, 20, 70, -10 }, transformedList);
 
         }
 
